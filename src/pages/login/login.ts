@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 
+import {finalize} from 'rxjs/operators';
+
+
 
 @IonicPage()
 @Component({
@@ -25,7 +28,17 @@ export class LoginPage {
     this.password = "teste1"
   }
 
-  doLogin(username: string, password: string){
+  login(username: string, password: string){
+    this.authProvider.login({
+        username: username,
+         password: password
+    })
+    .pipe(finalize( () =>  {} ))
+    .subscribe(
+      () => {},
+      (err) => console.log('This should show an error message on the top of the screen')
+    );
+
 
 
   }
